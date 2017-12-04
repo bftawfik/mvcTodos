@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/todoStyle.css" rel="stylesheet" type="text/css">
+    <title>ToDo</title>
+  </head>
+  <body>
+    <p id='mvc-title'>todos</p>
+    <div id="mvc-container">
+      <header>
+        <button type="button" name="button" id="mvc-mark-all-as-button" class="icon-button hiddenBtn">
+          <span class="fa fa-angle-down"  aria-hidden="true"></span>
+        </button>
+        <input type="text" name="" value="" id="mvc-new-task-textbox" placeholder="What needs to be done?">
+      </header>
+      <div id="mvc-tasks-container">
+      </div>
+      <footer class="hiddenFooter">
+        <div id="mvc-footer-left">
+          <label id="mvc-tasks-counter-label">0 items left</label>
+        </div>
+        <div id="mvc-footer-center">
+          <button type="button" name="button" id="mvc-show-all-button" class="active-button">All</button>
+          <button type="button" name="button" id="mvc-show-active-button">Active</button>
+          <button type="button" name="button" id="mvc-show-completed-button">Completed</button>
+        </div>
+        <div id="mvc-footer-right">
+          <a href="#">Clear copmleted</a>
+        </div>
+      </footer>
+    </div>
+    <script type="text/javascript" src="js/EventDispatcher.js"></script>
+    <script type="text/javascript" src="js/TaskModel.js"></script>
+    <script type="text/javascript" src="js/TaskView.js"></script>
+    <script type="text/javascript" src="js/TaskController.js"></script>
+    <script type="text/javascript" src="js/App.js"></script>
+  </body>
+</html>
