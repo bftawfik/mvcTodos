@@ -1,1 +1,1 @@
-this is just a simple todo app made using mvc
+This is just a simple todo app made using mvc.
