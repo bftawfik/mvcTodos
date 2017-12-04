@@ -1,0 +1,165 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  color: #aaa;
+}
+
+textarea:focus, input:focus, button:focus{
+  outline: none;
+}
+#mvc-title{
+  font-size: 70pt;
+  text-align: center;
+  font-family: arial;
+  margin-top: 50px;
+  color: #ccc;
+}
+#mvc-container {
+  width: 500px;
+  margin: 0 auto;
+  box-shadow: 2px 2px 30px #ccc;
+}
+#mvc-container header{
+  width: 100%;
+  height: 60px;
+}
+.icon-button{
+ width: 10%;
+ height: 100%;
+ float: left;
+ background-color: #fff;
+}
+.icon-button span{
+  font-size: 25pt;
+  color: #ddd;
+}
+.hiddenBtn{
+  visibility: hidden;
+}
+#mvc-new-task-textbox{
+  width: 90%;
+  height: 100%;
+  float: left;
+  font-size: 20pt;
+  font-family: arial;
+  padding: 1%;
+  box-sizing:border-box;
+}
+#mvc-new-task-textbox::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #ddd;
+  font-style: italic;
+}
+#mvc-new-task-textbox:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #ddd;
+  font-style: italic;
+}
+#mvc-new-task-textbox::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #ddd;
+  font-style: italic;
+}
+#mvc-new-task-textbox:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #ddd;
+  font-style: italic;
+}
+#mvc-tasks-container{
+  width: 100%;
+  box-shadow: 0px -1px 5px #ddd;
+  position: relative;
+}
+.mvc-single-task-container{
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #ddd;
+}
+.mvc-task-label-completed input[type='text']{
+  color: #ddd;
+  text-decoration: line-through;
+}
+.mvc-task-label-uncomplete input[type='text']{
+  color: #666;
+  text-decoration: none;
+}
+.mvc-single-task-container a input[type='text']{
+  width: 80%;
+  height: 100%;
+  float: left;
+  font-size: 20pt;
+  font-family: arial;
+  padding: 1%;
+  box-sizing:border-box;
+}
+.mvc-single-task-container a input[type='text']:disabled{
+  background-color: #fff;
+}
+.mvc-single-task-container .icon-button:last-child span{
+  color: #fff;
+}
+.mvc-single-task-container a:hover + .icon-button span{
+  color: #ddd;
+}
+.mvc-single-task-container .icon-button:hover > span{
+  color: #ddd;
+}
+#mvc-container footer{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.hiddenFooter{
+  display: none;
+}
+#mvc-container footer div{
+  float: left;
+  height: 30px;
+}
+#mvc-footer-left, #mvc-footer-right{
+  width: 30%;
+}
+#mvc-footer-center{
+  width: 40%;
+  text-align: center;
+}
+#mvc-footer-left{
+  color: #777;
+  font-family: arial;
+  font-size: 11pt;
+  padding-left: 10px;
+  box-sizing:border-box;
+  text-align: left;
+}
+#mvc-footer-right{
+  color: #777;
+  font-family: arial;
+  font-size: 11pt;
+  text-align: right;
+  padding-right: 10px;
+  box-sizing:border-box;
+}
+#mvc-footer-right a{
+  text-decoration: none;
+}
+#mvc-footer-right a:hover{
+  text-decoration: underline;
+}
+#mvc-footer-center button{
+  background-color: #fff;
+  color: #666;
+  padding: 5px 10px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+#mvc-footer-center button:hover{
+  border-color: #eee;
+}
+#mvc-footer-center button:active{
+  border-color: #ccc;
+}
+#mvc-footer-center .active-button{
+  border-color: #999;
+}
