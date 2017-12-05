@@ -41,6 +41,11 @@ TaskModel.prototype = {
     this.tasksUpdatedEvent.notify({tasks: this._tasks, currentView: this._currentView});
   },
 
+  changeTaskName: function(task){
+    this._tasks[task.taskId].taskName = task.taskName;
+    this.tasksUpdatedEvent.notify({tasks: this._tasks, currentView: this._currentView});
+  },
+
   removeTask: function(taskId){
     this._tasks.splice(taskId, 1);
     this.tasksUpdatedEvent.notify({tasks: this._tasks, currentView: this._currentView});

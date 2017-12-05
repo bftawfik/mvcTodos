@@ -7,39 +7,57 @@ var TaskController = function (model, view){
 
 TaskController.prototype = {
   init: function(){
-    this.addElementsControllers();
+    this.makeElementsControllers()
+    .addElementsControllers();
+  },
+
+  makeElementsControllers: function(){
+    this.addNewTaskController = this.addNewTask.bind(this);
+    this.markAllAsController = this.markAllAs.bind(this);
+    this.switchViewController = this.switchView.bind(this);
+    this.changeTaskStatusController = this.changeTaskStatus.bind(this);
+    this.changeTaskNameController = this.changeTaskName.bind(this);
+    this.removeTaskController = this.removeTask.bind(this);
+    this.removeCompletedTasksController = this.removeCompletedTasks.bind(this);
+
+    return this;
   },
 
   addElementsControllers: function(){
-    this._view.addNewTaskEvent.attach(this.addNewTaskController.bind(this));
-    this._view.markAllAsEvent.attach(this.markAllAsController.bind(this));
-    this._view.switchViewEvent.attach(this.switchViewController.bind(this));
-    this._view.changeTaskStatusEvent.attach(this.changeTaskStatusController.bind(this));
-    this._view.removeTaskEvent.attach(this.removeTaskController.bind(this));
-    this._view.removeCompletedTasksEvent.attach(this.removeCompletedTasksController.bind(this));
+    this._view.addNewTaskEvent.attach(this.addNewTaskController);
+    this._view.markAllAsEvent.attach(this.markAllAsController);
+    this._view.switchViewEvent.attach(this.switchViewController);
+    this._view.changeTaskStatusEvent.attach(this.changeTaskStatusController);
+    this._view.changeTaskNameEvent.attach(this.changeTaskNameController);
+    this._view.removeTaskEvent.attach(this.removeTaskController);
+    this._view.removeCompletedTasksEvent.attach(this.removeCompletedTasksController);
   },
 
-  addNewTaskController: function(owner, args){
+  addNewTask: function(owner, args){
     this._model.addNewTask(args.taskName);
   },
 
-  markAllAsController: function(owner, args){
+  markAllAs: function(owner, args){
     this._model.markAllAs(args);
   },
 
-  switchViewController: function(owner, args){
+  switchView: function(owner, args){
     this._model.switchView(args.viewName);
   },
 
-  changeTaskStatusController: function(owner, args){
+  changeTaskStatus: function(owner, args){
     this._model.changeTaskStatus(args.taskId);
   },
 
-  removeTaskController: function(owner, args){
+  changeTaskName: function(owner, args){
+    this._model.changeTaskName(args);
+  },
+
+  removeTask: function(owner, args){
     this._model.removeTask(args.taskId);
   },
 
-  removeCompletedTasksController: function(owner, args){
+  removeCompletedTasks: function(owner, args){
     this._model.removeCompletedTasks(args);
   },
 }
