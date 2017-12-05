@@ -168,7 +168,7 @@ TaskView.prototype = {
             allElementsData += "-check";
           }
           allElementsData += "-square-o'  aria-hidden='true'></span></button>";
-          allElementsData += "<a class='mvc-task-label-" + tasks[tasksCount].status + "'><input type='text' name='' value="+tasks[tasksCount].taskName+" disabled></a>";
+          allElementsData += "<a class='mvc-task-label-" + tasks[tasksCount].status + "'><input type='text' name='' value='"+tasks[tasksCount].taskName+"' disabled></a>";
           allElementsData += "<button type='button' name='button' class='icon-button'><span class='fa fa-times'  aria-hidden='true'></span></button>";
           allElementsData += "</div>";
         }
