@@ -5,6 +5,7 @@ var TaskView = function(model){
   this.markAllAsEvent = new EventDispatcher(this);
   this.switchViewEvent = new EventDispatcher(this);
   this.changeTaskStatusEvent = new EventDispatcher(this);
+  this.changeTaskNameEvent = new EventDispatcher(this);
   this.removeTaskEvent = new EventDispatcher(this);
   this.removeCompletedTasksEvent = new EventDispatcher(this);
 
@@ -15,6 +16,7 @@ var TaskView = function(model){
 TaskView.prototype = {
   init: function(){
     this.addElements()
+    .makeEventHandelers()
     .addEventHandelers()
     .connectToModel();
   },
@@ -35,38 +37,68 @@ TaskView.prototype = {
     return this;
   },
 
+  makeEventHandelers: function(){
+    this.markAllAsHandler = this.markAllAs.bind(this);
+    this.addNewTaskHandler = this.addNewTask.bind(this);
+
+    this.tasksDivHandler = this.tasksDiv.bind(this);
+    this.editTaskLabelHandler = this.editTaskLabel.bind(this);
+    this.updateTaskHandler = this.updateTask.bind(this);
+
+    this.showAllHandler = this.showAll.bind(this);
+    this.showActiveHandler = this.showActive.bind(this);
+    this.showCompletedHandler = this.showCompleted.bind(this);
+
+    this.clearCompletedHandler = this.clearCompleted.bind(this);
+
+    //---------------
+
+    this.updateTasksDivHandler = this.updateTasksDiv.bind(this);
+    this.clearNewTaskInputTextHandler = this.clearNewTaskInputText.bind(this);
+    this.updateTasksCountHandler = this.updateTasksCount.bind(this);
+    this.updateViewHandler = this.updateView.bind(this);
+    return this;
+  },
+
   addEventHandelers: function(){
-    this.markAllAs_btn.addEventListener('click', this.markAllAsHandler.bind(this));
-    this.newTask_txt.addEventListener('keyup', this.addNewTaskHandler.bind(this));
+    this.markAllAs_btn.addEventListener('click', this.markAllAsHandler);
+    this.newTask_txt.addEventListener('keyup', this.addNewTaskHandler);
 
-    this.tasks_div.addEventListener('click', this.tasksDivHandler.bind(this));
+    this.tasks_div.addEventListener('click', this.tasksDivHandler);
+    this.tasks_div.addEventListener('dblclick', this.editTaskLabelHandler);
 
-    this.showAll_btn.addEventListener('click', this.showAllHandler.bind(this));
-    this.showActive_btn.addEventListener('click', this.showActiveHandler.bind(this));
-    this.showCompleted_btn.addEventListener('click', this.showCompletedHandler.bind(this));
-    this.clearCompleted_btn.addEventListener('click', this.clearCompletedHandler.bind(this));
+    this.showAll_btn.addEventListener('click', this.showAllHandler);
+    this.showActive_btn.addEventListener('click', this.showActiveHandler);
+    this.showCompleted_btn.addEventListener('click', this.showCompletedHandler);
+
+    this.clearCompleted_btn.addEventListener('click', this.clearCompletedHandler);
 
     return this;
   },
 
   connectToModel: function(){
-    this._model.tasksUpdatedEvent.attach(this.updateTasksDiv.bind(this));
-    this._model.tasksUpdatedEvent.attach(this.clearNewTaskInputText.bind(this));
-    this._model.tasksUpdatedEvent.attach(this.updateTasksCount.bind(this));
-    this._model.viewSwitchedEvent.attach(this.updateView.bind(this));
+    this._model.tasksUpdatedEvent.attach(this.updateTasksDivHandler);
+    this._model.tasksUpdatedEvent.attach(this.clearNewTaskInputTextHandler);
+    this._model.tasksUpdatedEvent.attach(this.updateTasksCountHandler);
+    this._model.viewSwitchedEvent.attach(this.updateViewHandler);
+  },
+
+
+  addEventHandelerToTaskLabel: function(label){
+    label.addEventListener('keyup', this.updateTaskHandler);
   },
   //---------------------------------------------------------------------------
-  markAllAsHandler: function(){
+  markAllAs: function(){
     this.markAllAsEvent.notify();
   },
 
-  addNewTaskHandler: function(e){
+  addNewTask: function(e){
     if (e.keyCode == 13) {
       this.addNewTaskEvent.notify({taskName: this.newTask_txt.value});
     }
   },
 
-  tasksDivHandler: function(e){
+  tasksDiv: function(e){
     var emptyCheckBoxClass = "fa fa-square-o";
     var filledCheckBoxClass = "fa fa-check-square-o";
     var labelClass = "";
@@ -80,19 +112,40 @@ TaskView.prototype = {
     }
   },
 
-  showAllHandler: function(){
+  editTaskLabel: function(e){
+    if(e.target.type == "text"){
+      if(e.path[1].classList.value == "mvc-task-label-uncomplete"){
+        e.target.disabled = false;
+        e.target.focus();
+        e.target.select();
+        this.addEventHandelerToTaskLabel(e.target);
+      }
+    }
+  },
+
+  updateTask: function(e){
+    if (e.keyCode == 13) {
+      e.target.disabled = true;
+      var taskId = parseInt(e.path[2].classList[1]);
+      var taskName = e.target.value;
+      this.changeTaskNameEvent.notify({taskId: taskId, taskName: taskName});
+      e.target.removeEventListener('keyup', this.updateTaskHandler);
+    }
+  },
+
+  showAll: function(){
     this.switchViewEvent.notify({viewName: "all"});
   },
 
-  showActiveHandler: function(){
+  showActive: function(){
     this.switchViewEvent.notify({viewName: "uncomplete"});
   },
 
-  showCompletedHandler: function(){
+  showCompleted: function(){
     this.switchViewEvent.notify({viewName: "completed"});
   },
 
-  clearCompletedHandler: function(){
+  clearCompleted: function(){
     this.removeCompletedTasksEvent.notify();
   },
   //---------------------------------------------------------------------------
